@@ -51,7 +51,7 @@ export default function Hero({ onCTA }) {
       {/* center content */}
       <div className="relative z-10 max-w-5xl mx-auto text-center px-6">
         <p className="fade-in-up [animation-delay:120ms] text-cyan-200/80">Modern RPG learning platform</p>
-        <h1 className="fade-in-up [animation-delay:220ms] mt-3 font-extrabold leading-tight tracking-tight text-5xl sm:text-6xl md:text-7xl">
+        <h1 className="fade-in-up [animation-delay:220ms] mt-3 font-extrabold leading-tight tracking-tight text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
           <span className="block">Learn Code.</span>
           <span className="block">Level Up.</span>
           <span className="block text-gradient-animate">Become Legend.</span>
@@ -61,7 +61,7 @@ export default function Hero({ onCTA }) {
         </p>
 
         <div className="fade-in-up [animation-delay:420ms] mt-8 flex items-center justify-center">
-          <button onClick={onCTA} className="group relative inline-flex items-center gap-3 px-7 py-4 rounded-2xl bg-teal-400 text-slate-900 font-semibold transition-all duration-300 ease-[cubic-bezier(.2,.8,.2,1)] hover:scale-[1.03] glow-cta">
+          <button onClick={onCTA} className="group relative inline-flex items-center gap-3 px-7 py-4 rounded-2xl bg-teal-400 text-slate-900 font-semibold transition-all duration-300 ease-[cubic-bezier(.2,.8,.2,1)] hover:scale-[1.05] glow-cta">
             <Sparkles className="w-5 h-5" />
             <span>Start Your Quest</span>
             <span className="pointer-events-none absolute -inset-0.5 rounded-2xl ring-2 ring-teal-300/60 blur-sm opacity-0 group-hover:opacity-100 transition" />
