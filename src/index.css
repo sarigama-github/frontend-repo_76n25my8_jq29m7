@@ -5,42 +5,72 @@
 @layer base {
   :root {
     --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-geist: 'Geist', system-ui, sans-serif;
-    --font-geist-mono: 'Geist Mono', monospace;
-    --font-mona: 'Mona Sans', system-ui, sans-serif;
-    --font-ibm-plex: 'IBM Plex Sans', system-ui, sans-serif;
-    --font-manrope: 'Manrope', system-ui, sans-serif;
+    --deep-space: 220 40% 12%;
+    --teal: 174 72% 56%;
   }
 
-  html {
-    font-family: var(--font-sans);
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  body {
-    @apply antialiased;
-  }
+  html { font-family: var(--font-sans); font-feature-settings: "rlig" 1, "calt" 1; }
+  body { @apply antialiased; }
 }
 
-/* Custom utility classes for shadcn/ui patterns */
-@layer utilities {
-  .animate-in {
-    animation-name: animateIn;
-    animation-duration: 350ms;
-    --tw-enter-opacity: initial;
-    --tw-enter-scale: initial;
-    --tw-enter-rotate: initial;
-    --tw-enter-translate-x: initial;
-    --tw-enter-translate-y: initial;
-  }
+/* Animations */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-  .animate-out {
-    animation-name: animateOut;
-    animation-duration: 350ms;
-    --tw-exit-opacity: initial;
-    --tw-exit-scale: initial;
-    --tw-exit-rotate: initial;
-    --tw-exit-translate-x: initial;
-    --tw-exit-translate-y: initial;
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-16px) scale(1.02); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0px rgba(45,212,191,0.0), 0 0 40px rgba(45,212,191,0.25); }
+  50% { box-shadow: 0 0 20px rgba(45,212,191,0.45), 0 0 60px rgba(45,212,191,0.35); }
+}
+
+@keyframes shimmerText {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@layer utilities {
+  .bg-animated-space {
+    background: linear-gradient(120deg,
+      hsl(220 40% 10%),
+      hsl(215 60% 12%),
+      hsl(210 70% 14%),
+      hsl(195 65% 18%),
+      hsl(188 70% 20%)
+    );
+    background-size: 300% 300%;
+    animation: gradientShift 8s ease-in-out infinite;
   }
+  .text-gradient-animate {
+    background-image: linear-gradient(90deg,
+      hsl(190 85% 70%),
+      hsl(174 72% 56%),
+      hsl(200 90% 65%),
+      hsl(174 72% 56%),
+      hsl(190 85% 70%)
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmerText 3.5s linear infinite;
+  }
+  .orb {
+    filter: blur(40px);
+    opacity: 0.55;
+    animation: floatY 6s ease-in-out infinite;
+  }
+  .glow-cta { animation: glowPulse 2.4s ease-in-out infinite; }
+  .fade-in-up { animation: fadeInUp 600ms cubic-bezier(.4,.0,.2,1) forwards; opacity: 0; }
 }
