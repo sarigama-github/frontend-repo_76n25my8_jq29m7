@@ -81,8 +81,8 @@ export default function Hero({ onCTA }) {
         </div>
       </div>
 
-      {/* center floating icon (JS Mage renamed) */}
-      <img data-sprite alt="EduaiHub" className="hidden sm:block absolute left-1/2 -translate-x-1/2 top-10 w-16 drop-shadow-[0_0_28px_rgba(250,204,21,0.5)]" src="https://cdn.jsdelivr.net/gh/tabler/tabler-icons/icons/svg/brand-javascript.svg" />
+      {/* center floating logo (EduaiHub) */}
+      <img data-sprite alt="EduaiHub" className="hidden sm:block absolute left-1/2 -translate-x-1/2 top-10 w-16 drop-shadow-[0_0_28px_rgba(34,211,238,0.5)]" src="/eduaihub.svg" />
     </header>
   )
 }
