@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import ModuleFlow from './ModuleFlow'
+import Recommendations from './Recommendations'
 
 export default function StudentDashboard({ token }) {
   const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
@@ -7,9 +9,9 @@ export default function StudentDashboard({ token }) {
   const [chapters, setChapters] = useState([])
 
   useEffect(() => {
-    // Minimal fake profile from token not implemented; show sample content
-    fetch(`${baseUrl}/api/courses`)
-      .then(r => r.json()).then(setCourses)
+    const headers = token ? { 'Authorization': `Bearer ${token}` } : {}
+    fetch(`${baseUrl}/api/me`, { headers }).then(r=>r.json()).then(setUser).catch(()=>{})
+    fetch(`${baseUrl}/api/courses`).then(r => r.json()).then(setCourses)
   }, [])
 
   const fetchChapters = async (lang) => {
@@ -24,7 +26,7 @@ export default function StudentDashboard({ token }) {
         <div className="flex items-center gap-4 mb-6">
           <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-400 animate-pulse"></div>
           <div>
-            <h2 className="text-2xl font-bold">Welcome, Adventurer</h2>
+            <h2 className="text-2xl font-bold">Welcome, {user?.name || 'Adventurer'}</h2>
             <p className="text-blue-200/80">Choose a realm and begin your quest.</p>
           </div>
         </div>
@@ -50,6 +52,17 @@ export default function StudentDashboard({ token }) {
                   <div className="text-blue-200/80">{ch.description}</div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {user && (
+          <div className="mt-12">
+            <h3 className="text-xl font-bold mb-4">Your Quest</h3>
+            <ModuleFlow user={user} token={token} />
+            <div className="mt-10">
+              <h3 className="text-xl font-semibold mb-3">Recommendations</h3>
+              <Recommendations userId={user._id} />
             </div>
           </div>
         )}
