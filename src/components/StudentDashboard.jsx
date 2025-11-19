@@ -7,10 +7,16 @@ export default function StudentDashboard({ token }) {
   const [user, setUser] = useState(null)
   const [courses, setCourses] = useState([])
   const [chapters, setChapters] = useState([])
+  const [stats, setStats] = useState(null)
 
   useEffect(() => {
     const headers = token ? { 'Authorization': `Bearer ${token}` } : {}
-    fetch(`${baseUrl}/api/me`, { headers }).then(r=>r.json()).then(setUser).catch(()=>{})
+    fetch(`${baseUrl}/api/me`, { headers }).then(r=>r.json()).then((u)=>{
+      setUser(u)
+      if (u?._id) {
+        fetch(`${baseUrl}/api/analytics/student/${u._id}`).then(r=>r.json()).then(setStats)
+      }
+    }).catch(()=>{})
     fetch(`${baseUrl}/api/courses`).then(r => r.json()).then(setCourses)
   }, [])
 
@@ -27,7 +33,7 @@ export default function StudentDashboard({ token }) {
           <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-400 animate-pulse"></div>
           <div>
             <h2 className="text-2xl font-bold">Welcome, {user?.name || 'Adventurer'}</h2>
-            <p className="text-blue-200/80">Choose a realm and begin your quest.</p>
+            <p className="text-blue-200/80">Level {stats?.user?.level ?? user?.current_level ?? 1} • XP {stats?.user?.xp ?? user?.xp_points ?? 0} • Completion {stats?.completion_pct ?? 0}%</p>
           </div>
         </div>
 
